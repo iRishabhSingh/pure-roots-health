@@ -1,49 +1,60 @@
-import { motion } from "framer-motion";
-import { MapPin } from "lucide-react";
+import { MapPin, Phone } from "lucide-react";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const locations = [
-  { city: "Jaipur", address: "Main Branch — Tonk Road, Jaipur, Rajasthan", phone: "+91-9414636560" },
-  { city: "Delhi", address: "Consultation Center — Lajpat Nagar, New Delhi", phone: "+91-9414636560" },
-  { city: "Lucknow", address: "Partner Clinic — Hazratganj, Lucknow, UP", phone: "+91-9414636560" },
-  { city: "Mumbai", address: "Consultation Center — Andheri West, Mumbai", phone: "+91-9414636560" },
+  { city: "Jaipur", state: "Rajasthan", address: "Main Branch — Tonk Road", phone: "+91-9414636560", isPrimary: true },
+  { city: "Delhi", state: "New Delhi", address: "Consultation Center — Lajpat Nagar", phone: "+91-9414636560", isPrimary: false },
+  { city: "Lucknow", state: "Uttar Pradesh", address: "Partner Clinic — Hazratganj", phone: "+91-9414636560", isPrimary: false },
+  { city: "Mumbai", state: "Maharashtra", address: "Consultation Center — Andheri West", phone: "+91-9414636560", isPrimary: false },
 ];
 
-const LocationsSection = () => (
-  <section id="locations" className="section-padding">
-    <div className="section-container">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        className="text-center max-w-2xl mx-auto mb-16"
-      >
-        <span className="text-xs font-semibold tracking-widest uppercase text-accent">Our Presence</span>
-        <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground">Find Us Near You</h2>
-      </motion.div>
+const LocationsSection = () => {
+  const { ref, isVisible } = useScrollReveal();
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {locations.map((loc, i) => (
-          <motion.div
-            key={loc.city}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.1 }}
-            className="card-elevated p-6 text-center"
-          >
-            <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-              <MapPin className="text-primary" size={22} />
+  return (
+    <section id="locations" className="py-section bg-secondary/40">
+      <div className="container-section" ref={ref}>
+        <div className="text-center max-w-xl mx-auto mb-16">
+          <p className="label-tag">Our Presence</p>
+          <h2 className="heading-lg mt-3 text-foreground">
+            Find us <em className="italic">near you</em>
+          </h2>
+          <p className="body-lg mt-4">Visit us at any of our locations for a personalized consultation.</p>
+        </div>
+
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {locations.map((loc, i) => (
+            <div
+              key={loc.city}
+              className={`card-glass p-6 relative overflow-hidden transition-all duration-700 ${
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              } ${loc.isPrimary ? "ring-1 ring-primary/20" : ""}`}
+              style={{ transitionDelay: `${i * 100}ms` }}
+            >
+              {loc.isPrimary && (
+                <span className="absolute top-4 right-4 font-body text-[10px] font-semibold tracking-wider uppercase bg-primary/10 text-primary px-2.5 py-1 rounded-full">
+                  Main
+                </span>
+              )}
+              <div className="w-11 h-11 rounded-full bg-primary/8 flex items-center justify-center mb-5">
+                <MapPin size={20} className="text-primary" />
+              </div>
+              <h3 className="font-display text-2xl text-foreground">{loc.city}</h3>
+              <p className="font-body text-xs text-muted-foreground mt-0.5">{loc.state}</p>
+              <p className="font-body text-sm text-muted-foreground mt-3 leading-relaxed">{loc.address}</p>
+              <a
+                href={`tel:${loc.phone.replace(/[^+\d]/g, "")}`}
+                className="mt-4 flex items-center gap-2 font-body text-sm font-medium text-primary hover:underline"
+              >
+                <Phone size={14} />
+                {loc.phone}
+              </a>
             </div>
-            <h3 className="font-bold text-foreground text-lg">{loc.city}</h3>
-            <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{loc.address}</p>
-            <a href={`tel:${loc.phone.replace(/[^+\d]/g, "")}`} className="inline-block mt-3 text-sm font-semibold text-primary hover:underline">
-              {loc.phone}
-            </a>
-          </motion.div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default LocationsSection;

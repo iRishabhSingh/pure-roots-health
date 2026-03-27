@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Send, Phone, Mail, MapPin } from "lucide-react";
+import { Send, Phone, Mail, MapPin, ArrowRight } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const schema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
@@ -13,6 +13,7 @@ const schema = z.object({
 const ContactSection = () => {
   const [form, setForm] = useState({ name: "", phone: "", concern: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const { ref, isVisible } = useScrollReveal();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,81 +34,98 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="bg-secondary/50 section-padding">
-      <div className="section-container">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <span className="text-xs font-semibold tracking-widest uppercase text-accent">Get In Touch</span>
-            <h2 className="mt-3 text-3xl md:text-4xl font-bold text-foreground">Your Journey to Healing</h2>
-            <p className="mt-4 text-muted-foreground leading-relaxed">
-              Experience authentic Ayurveda. Get a personalized consultation and genuine medicines tailored to your needs.
-            </p>
+    <section id="contact" className="py-section">
+      <div className="container-section" ref={ref}>
+        {/* CTA Banner */}
+        <div
+          className={`rounded-3xl p-10 md:p-16 mb-20 text-center transition-all duration-700 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+          style={{ background: "linear-gradient(135deg, hsl(160 35% 22%), hsl(160 30% 16%))" }}
+        >
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl text-primary-foreground leading-tight">
+            Start your healing journey <em className="italic">today</em>
+          </h2>
+          <p className="font-body text-sm md:text-base mt-4 max-w-md mx-auto" style={{ color: "hsl(38 25% 75%)" }}>
+            Get a free personalized consultation from our Ayurvedic experts. No obligation, just guidance.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4 mt-8">
+            <a href="https://wa.me/919414636560" target="_blank" rel="noopener noreferrer" className="btn-whatsapp">
+              WhatsApp Us
+              <ArrowRight size={16} />
+            </a>
+            <a href="tel:+919414636560" className="btn-outline border-primary-foreground/25 text-primary-foreground hover:bg-primary-foreground/10">
+              <Phone size={16} />
+              Call Now
+            </a>
+          </div>
+        </div>
 
-            <div className="mt-8 space-y-5">
+        {/* Form + Info */}
+        <div
+          className={`grid lg:grid-cols-5 gap-14 lg:gap-20 transition-all duration-700 delay-200 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+        >
+          {/* Info */}
+          <div className="lg:col-span-2">
+            <p className="label-tag">Get In Touch</p>
+            <h2 className="heading-md mt-3 text-foreground font-display">
+              We'd love to <em className="italic">hear from you</em>
+            </h2>
+            <p className="body-lg mt-4 text-sm">
+              Fill out the form or reach us directly. Our team responds within 24 hours.
+            </p>
+            <div className="mt-10 space-y-6">
               {[
                 { icon: Phone, label: "+91-9414636560", href: "tel:+919414636560" },
                 { icon: Mail, label: "kamleshwarayurved@gmail.com", href: "mailto:kamleshwarayurved@gmail.com" },
                 { icon: MapPin, label: "Tonk Road, Jaipur, Rajasthan", href: "#locations" },
               ].map(({ icon: Icon, label, href }) => (
-                <a key={label} href={href} className="flex items-center gap-4 text-muted-foreground hover:text-foreground transition-colors group">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                <a key={label} href={href} className="flex items-center gap-4 group">
+                  <div className="w-10 h-10 rounded-xl bg-primary/8 flex items-center justify-center group-hover:bg-primary/15 transition-colors duration-300">
                     <Icon size={18} className="text-primary" />
                   </div>
-                  <span className="text-sm">{label}</span>
+                  <span className="font-body text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-300">{label}</span>
                 </a>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Form */}
-          <motion.form
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15 }}
-            onSubmit={handleSubmit}
-            className="card-elevated p-6 md:p-8 space-y-5"
-          >
+          <form onSubmit={handleSubmit} className="lg:col-span-3 space-y-5">
             {[
               { key: "name", label: "Full Name", type: "text", placeholder: "Your name" },
               { key: "phone", label: "Phone Number", type: "tel", placeholder: "+91 XXXXX XXXXX" },
             ].map(({ key, label, type, placeholder }) => (
               <div key={key}>
-                <label className="text-sm font-medium text-foreground">{label}</label>
+                <label className="font-body text-sm font-medium text-foreground">{label}</label>
                 <input
                   type={type}
                   value={form[key as keyof typeof form]}
                   onChange={(e) => setForm({ ...form, [key]: e.target.value })}
                   placeholder={placeholder}
-                  className="mt-1.5 w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all text-sm"
+                  className="mt-2 w-full px-5 py-3.5 rounded-xl bg-card/60 border border-border text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all duration-300 font-body text-sm"
                 />
-                {errors[key] && <p className="text-xs text-destructive mt-1">{errors[key]}</p>}
+                {errors[key] && <p className="font-body text-xs text-destructive mt-1.5">{errors[key]}</p>}
               </div>
             ))}
             <div>
-              <label className="text-sm font-medium text-foreground">Health Concern</label>
+              <label className="font-body text-sm font-medium text-foreground">Health Concern</label>
               <textarea
                 value={form.concern}
                 onChange={(e) => setForm({ ...form, concern: e.target.value })}
                 placeholder="Briefly describe your health concern..."
                 rows={4}
-                className="mt-1.5 w-full px-4 py-3 rounded-xl bg-background border border-border text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all text-sm resize-none"
+                className="mt-2 w-full px-5 py-3.5 rounded-xl bg-card/60 border border-border text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/30 transition-all duration-300 font-body text-sm resize-none"
               />
-              {errors.concern && <p className="text-xs text-destructive mt-1">{errors.concern}</p>}
+              {errors.concern && <p className="font-body text-xs text-destructive mt-1.5">{errors.concern}</p>}
             </div>
-            <button
-              type="submit"
-              className="w-full bg-primary text-primary-foreground font-semibold py-3.5 rounded-xl hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
-            >
-              <Send size={16} />
-              Send via WhatsApp
+            <button type="submit" className="btn-primary w-full sm:w-auto">
+              <Send size={15} />
+              Send Consultation Request
             </button>
-          </motion.form>
+          </form>
         </div>
       </div>
     </section>
