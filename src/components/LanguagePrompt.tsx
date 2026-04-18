@@ -1,50 +1,74 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Globe, X, Check } from "lucide-react";
 import { LANG_LABELS, SUPPORTED_LANGS, type Lang } from "@/i18n";
 
 const ease = [0.16, 1, 0.3, 1] as const;
-const PILL_DURATION = 8000;
+const PILL_AUTO_HIDE = 9000;
+
+const normalize = (l: string): Lang => {
+  const base = (l || "en").toLowerCase().split("-")[0];
+  return (SUPPORTED_LANGS as readonly string[]).includes(base) ? (base as Lang) : "en";
+};
 
 const LanguagePrompt = () => {
   const { i18n, t } = useTranslation();
-  const current = (i18n.resolvedLanguage || "en").split("-")[0] as Lang;
+  const current = normalize(i18n.resolvedLanguage || i18n.language || "en");
 
   const [showModal, setShowModal] = useState(false);
   const [showPill, setShowPill] = useState(false);
   const [pickerOpen, setPickerOpen] = useState(false);
+  const hideTimer = useRef<number | null>(null);
 
+  // Decide on first mount: popup vs pill
   useEffect(() => {
     const handled = sessionStorage.getItem("lang_prompt_handled");
     if (handled) return;
-    if (current !== "en" && SUPPORTED_LANGS.includes(current)) {
-      // small delay to avoid jarring on load
-      const t = setTimeout(() => setShowModal(true), 700);
-      return () => clearTimeout(t);
-    }
-  }, [current]);
 
-  const dismissModal = (keep: boolean) => {
+    const t = window.setTimeout(() => {
+      if (current !== "en") {
+        // Non-English device → confirm popup
+        setShowModal(true);
+      } else {
+        // English device → just show the pill briefly
+        setShowPill(true);
+        hideTimer.current = window.setTimeout(() => setShowPill(false), PILL_AUTO_HIDE);
+      }
+    }, 600);
+    return () => window.clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const startPillAutoHide = () => {
+    if (hideTimer.current) window.clearTimeout(hideTimer.current);
+    hideTimer.current = window.setTimeout(() => {
+      if (!pickerOpen) setShowPill(false);
+    }, PILL_AUTO_HIDE);
+  };
+
+  const dismissModal = (switchToEn: boolean) => {
     sessionStorage.setItem("lang_prompt_handled", "1");
-    if (!keep) {
+    if (switchToEn) {
       i18n.changeLanguage("en");
+      sessionStorage.setItem("lang", "en");
     }
     setShowModal(false);
     setShowPill(true);
-    setTimeout(() => setShowPill(false), PILL_DURATION);
+    startPillAutoHide();
   };
 
   const choose = (lang: Lang) => {
     i18n.changeLanguage(lang);
     sessionStorage.setItem("lang", lang);
+    sessionStorage.setItem("lang_prompt_handled", "1");
     setPickerOpen(false);
-    setShowPill(false);
+    startPillAutoHide();
   };
 
   return (
     <>
-      {/* Modal */}
+      {/* Confirmation popup — only when device lang != English */}
       <AnimatePresence>
         {showModal && (
           <motion.div
@@ -54,6 +78,8 @@ const LanguagePrompt = () => {
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-[60] flex items-center justify-center p-4"
             style={{ background: "hsl(160 15% 12% / 0.6)", backdropFilter: "blur(8px)" }}
+            role="dialog"
+            aria-modal="true"
           >
             <motion.div
               initial={{ scale: 0.92, opacity: 0, y: 16 }}
@@ -73,13 +99,13 @@ const LanguagePrompt = () => {
               </p>
               <div className="mt-6 flex flex-col gap-2.5">
                 <button
-                  onClick={() => dismissModal(false)}
+                  onClick={() => dismissModal(true)}
                   className="btn-primary w-full justify-center"
                 >
                   {t("lang_modal.switch_en")}
                 </button>
                 <button
-                  onClick={() => dismissModal(true)}
+                  onClick={() => dismissModal(false)}
                   className="font-body text-sm text-muted-foreground hover:text-foreground py-2.5 transition-colors"
                 >
                   {t("lang_modal.keep", { lang: LANG_LABELS[current] })}
@@ -90,7 +116,7 @@ const LanguagePrompt = () => {
         )}
       </AnimatePresence>
 
-      {/* Pill (after modal dismissed) */}
+      {/* Floating language pill */}
       <AnimatePresence>
         {showPill && !showModal && (
           <motion.div
@@ -99,7 +125,10 @@ const LanguagePrompt = () => {
             exit={{ opacity: 0, y: 16 }}
             transition={{ duration: 0.35, ease }}
             className="fixed bottom-5 left-5 z-40"
-            onMouseEnter={() => setPickerOpen(true)}
+            onMouseEnter={() => {
+              if (hideTimer.current) window.clearTimeout(hideTimer.current);
+            }}
+            onMouseLeave={startPillAutoHide}
           >
             <div className="relative">
               <button
@@ -120,7 +149,7 @@ const LanguagePrompt = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 8, scale: 0.96 }}
                     transition={{ duration: 0.2, ease }}
-                    className="absolute bottom-full left-0 mb-2 bg-card border border-border rounded-xl shadow-xl overflow-hidden min-w-[140px]"
+                    className="absolute bottom-full left-0 mb-2 bg-card border border-border rounded-xl shadow-xl overflow-hidden min-w-[160px]"
                   >
                     {SUPPORTED_LANGS.map((l) => (
                       <button
@@ -133,7 +162,10 @@ const LanguagePrompt = () => {
                       </button>
                     ))}
                     <button
-                      onClick={() => setShowPill(false)}
+                      onClick={() => {
+                        setPickerOpen(false);
+                        setShowPill(false);
+                      }}
                       className="w-full flex items-center gap-2 px-4 py-2 text-left border-t border-border/50 text-muted-foreground hover:bg-muted transition-colors"
                     >
                       <X size={12} />
