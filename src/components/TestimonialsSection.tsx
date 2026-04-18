@@ -151,9 +151,9 @@ const TestimonialsSection = () => {
             }`}
           >
             {[
-              { value: "5,000+", label: "Patients Helped" },
-              { value: "20+", label: "Years of Practice" },
-              { value: "4", label: "Locations" },
+              { value: "80,000+", label: "Patients Helped" },
+              { value: "30+", label: "Years of Practice" },
+              { value: "3", label: "Clinics" },
             ].map((s) => (
               <div key={s.label}>
                 <p className="font-display text-3xl md:text-4xl text-primary">{s.value}</p>

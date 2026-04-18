@@ -3,8 +3,8 @@ import { ArrowRight } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const stats = [
-  { value: "20+", label: "Years of Practice" },
-  { value: "5,000+", label: "Patients Helped" },
+  { value: "30+", label: "Years of Practice" },
+  { value: "80,000+", label: "Patients Helped" },
   { value: "GMP", label: "Certified" },
 ];
 
@@ -53,8 +53,8 @@ const HeroSection = () => (
           className="mt-6 text-base sm:text-lg leading-relaxed max-w-xl"
           style={{ color: "hsl(38 30% 80%)" }}
         >
-          Holistic kidney care and blood purification through time-tested,
-          patented Ayurvedic formulations. Trusted by thousands across India.
+          Since 1995 — holistic kidney care and blood purification through 100% herbal,
+          Charak Samhita-inspired formulations. Trusted by 80,000+ patients across India.
         </motion.p>
 
         <motion.div

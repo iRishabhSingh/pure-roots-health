@@ -2,10 +2,9 @@ import { MapPin, Phone } from "lucide-react";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const locations = [
-  { city: "Jaipur", state: "Rajasthan", address: "Main Branch — Tonk Road", phone: "+91-9414636560", isPrimary: true },
-  { city: "Delhi", state: "New Delhi", address: "Consultation Center — Lajpat Nagar", phone: "+91-9414636560", isPrimary: false },
-  { city: "Lucknow", state: "Uttar Pradesh", address: "Partner Clinic — Hazratganj", phone: "+91-9414636560", isPrimary: false },
-  { city: "Mumbai", state: "Maharashtra", address: "Consultation Center — Andheri West", phone: "+91-9414636560", isPrimary: false },
+  { city: "Nohar", state: "Rajasthan", address: "Founding Clinic — established 1999", phone: "+91-9414636560", isPrimary: true },
+  { city: "Jaipur", state: "Rajasthan", address: "Panchkarma Centre — established 1996", phone: "+91-9414636560", isPrimary: false },
+  { city: "Sirsa", state: "Haryana", address: "Consultation Centre", phone: "+91-9414636560", isPrimary: false },
 ];
 
 const LocationsSection = () => {
@@ -22,7 +21,7 @@ const LocationsSection = () => {
           <p className="body-lg mt-4">Visit us at any of our locations for a personalized consultation.</p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {locations.map((loc, i) => (
             <div
               key={loc.city}

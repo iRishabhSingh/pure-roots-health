@@ -13,7 +13,11 @@ interface Medicine {
   tagline: string;
   image: string;
   details: string;
+  usage: string;
+  purpose: string;
+  timeframe: string;
   benefits: string[];
+  precautions: string;
 }
 
 const medicines: Medicine[] = [
@@ -22,8 +26,12 @@ const medicines: Medicine[] = [
     hindi: "नेफ्रोकेयर सिरप",
     tagline: "Kidney health support",
     image: kidneyImg,
-    details: "A proprietary Ayurvedic formulation with Punarnava, Gokshura, and Varun Bark to support healthy kidney function and renal wellness.",
-    benefits: ["Supports natural kidney function", "Promotes healthy urine output", "Helps maintain electrolyte balance", "100% natural herbal ingredients"],
+    details: "A proprietary Charak Samhita-based formulation with Punarnava, Gokshura, and Varun Bark to support healthy kidney function and renal wellness. 100% herbal, zero side-effects.",
+    usage: "2 teaspoons (10 ml) twice daily, with lukewarm water, after meals.",
+    purpose: "Supports kidney function, healthy creatinine levels, and overall renal wellness.",
+    timeframe: "Most patients notice improvements within 4–6 weeks of consistent use.",
+    benefits: ["Supports natural kidney function", "Promotes healthy urine output", "Helps maintain electrolyte balance", "100% herbal · zero side-effects"],
+    precautions: "Pregnant or lactating women and children under 12 should consult a practitioner before use.",
   },
   {
     name: "Raktashodhak Syrup",
@@ -31,7 +39,11 @@ const medicines: Medicine[] = [
     tagline: "Blood purification support",
     image: bloodImg,
     details: "Traditional blood purification formula with Neem, Manjistha, and Sariva supporting the body's natural detoxification and skin health.",
+    usage: "2 teaspoons (10 ml) twice daily after meals, ideally with water.",
+    purpose: "Supports natural blood detoxification, healthy skin, and reduces toxin build-up.",
+    timeframe: "Visible skin improvements typically appear within 3–8 weeks.",
     benefits: ["Supports natural blood purification", "Promotes healthy, clear skin", "Aids detoxification processes", "Rich in antioxidant herbs"],
+    precautions: "Avoid during acute illness without practitioner guidance.",
   },
   {
     name: "Digestocare Tonic",
@@ -39,7 +51,11 @@ const medicines: Medicine[] = [
     tagline: "Digestive wellness",
     image: digestiveImg,
     details: "Ayurvedic digestive tonic with Triphala, Amla, and Haritaki for healthy digestion, nutrient absorption, and gut wellness.",
+    usage: "1–2 teaspoons before meals, twice daily.",
+    purpose: "Supports digestion, nutrient absorption, and a balanced gut.",
+    timeframe: "Most users feel improvement within 2–3 weeks.",
     benefits: ["Supports healthy digestion", "Promotes nutrient absorption", "Gentle on the stomach", "Enhances overall vitality"],
+    precautions: "Discontinue if loose stools persist; consult a practitioner.",
   },
   {
     name: "Urostan Syrup",
@@ -47,7 +63,11 @@ const medicines: Medicine[] = [
     tagline: "Urinary tract support",
     image: urinaryImg,
     details: "Specialized Ayurvedic formula with Varun, Gokhru, and Pashanbhed for urinary tract wellness and healthy kidney stone management.",
+    usage: "2 teaspoons (10 ml) thrice daily with plenty of water.",
+    purpose: "Supports urinary tract comfort and healthy stone management.",
+    timeframe: "Symptomatic relief typically within 2–4 weeks; full course 8–12 weeks.",
     benefits: ["Supports urinary tract health", "Natural diuretic support", "Promotes comfortable function", "GMP-certified quality"],
+    precautions: "Increase water intake while using. Consult a practitioner for large stones.",
   },
 ];
 
@@ -138,6 +158,22 @@ const MedicinesSection = () => {
                 <h3 className="font-display text-2xl text-foreground mt-1">{selected.name}</h3>
                 <p className="font-body text-sm text-muted-foreground">{selected.hindi}</p>
                 <p className="body-lg mt-5 text-sm">{selected.details}</p>
+
+                <div className="grid sm:grid-cols-2 gap-4 mt-6">
+                  <div>
+                    <p className="label-tag">Purpose</p>
+                    <p className="font-body text-sm text-muted-foreground mt-1.5">{selected.purpose}</p>
+                  </div>
+                  <div>
+                    <p className="label-tag">Timeframe</p>
+                    <p className="font-body text-sm text-muted-foreground mt-1.5">{selected.timeframe}</p>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <p className="label-tag">How to use</p>
+                    <p className="font-body text-sm text-muted-foreground mt-1.5">{selected.usage}</p>
+                  </div>
+                </div>
+
                 <div className="mt-6">
                   <p className="font-body font-semibold text-sm text-foreground mb-3">Key Benefits</p>
                   <div className="space-y-2.5">
@@ -149,9 +185,11 @@ const MedicinesSection = () => {
                     ))}
                   </div>
                 </div>
+
                 <div className="mt-6 p-4 bg-accent/8 rounded-xl border border-accent/15">
                   <p className="font-body text-xs text-muted-foreground">
-                    ⚠️ Consult a qualified healthcare practitioner before use. Not intended to diagnose, treat, cure, or prevent any disease.
+                    <strong>Precautions:</strong> {selected.precautions} Always consult a qualified
+                    Ayurvedic practitioner before use. Not intended to diagnose, treat, cure, or prevent any disease.
                   </p>
                 </div>
                 <a href="#contact" onClick={() => setSelected(null)} className="btn-primary w-full mt-6 justify-center">

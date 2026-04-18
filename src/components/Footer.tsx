@@ -3,10 +3,11 @@ import { Leaf } from "lucide-react";
 const links = [
   { title: "Navigate", items: [
     { label: "About", href: "#about" },
+    { label: "Our Journey", href: "#journey" },
     { label: "Medicines", href: "#medicines" },
+    { label: "Certifications", href: "#certifications" },
     { label: "Testimonials", href: "#testimonials" },
     { label: "Locations", href: "#locations" },
-    { label: "Contact", href: "#contact" },
   ]},
   { title: "Contact", items: [
     { label: "+91-9414636560", href: "tel:+919414636560" },
@@ -25,7 +26,7 @@ const Footer = () => (
             <span className="font-display text-xl italic" style={{ color: "hsl(38 20% 92%)" }}>Kamleshwar</span>
           </div>
           <p className="font-body text-sm leading-relaxed max-w-sm opacity-70">
-            Authentic Ayurvedic wellness for kidney health, blood purification, and holistic healing. GMP-certified pharmacy trusted for over 20 years.
+            Authentic Ayurvedic wellness for kidney health, blood purification, and holistic healing. GMP-certified pharmacy serving 80,000+ patients since 1995.
           </p>
         </div>
         {links.map((group) => (
