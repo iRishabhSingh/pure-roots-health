@@ -9,6 +9,7 @@ import LocationsSection from "@/components/LocationsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import FloatingButtons from "@/components/FloatingButtons";
+import LanguagePrompt from "@/components/LanguagePrompt";
 
 const Index = () => (
   <>
@@ -25,6 +26,7 @@ const Index = () => (
     </main>
     <Footer />
     <FloatingButtons />
+    <LanguagePrompt />
   </>
 );
 

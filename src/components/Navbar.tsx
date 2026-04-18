@@ -1,18 +1,20 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Leaf } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
-const links = [
-  { label: "About", href: "#about" },
-  { label: "Journey", href: "#journey" },
-  { label: "Medicines", href: "#medicines" },
-  { label: "Certifications", href: "#certifications" },
-  { label: "Results", href: "#testimonials" },
-];
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const links = [
+    { label: t("nav.about"), href: "#about" },
+    { label: t("nav.journey"), href: "#journey" },
+    { label: t("nav.medicines"), href: "#medicines" },
+    { label: t("nav.certifications"), href: "#certifications" },
+    { label: t("nav.results"), href: "#testimonials" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -23,9 +25,7 @@ const Navbar = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? "bg-background/90 backdrop-blur-xl shadow-sm"
-          : "bg-transparent"
+        scrolled ? "bg-background/90 backdrop-blur-xl shadow-sm" : "bg-transparent"
       }`}
     >
       <div className="container-section flex items-center justify-between h-16 md:h-20">
@@ -45,7 +45,7 @@ const Navbar = () => {
             </a>
           ))}
           <a href="#contact" className="btn-primary text-[13px] px-6 py-2.5">
-            Book Consultation
+            {t("nav.book")}
           </a>
         </div>
 
@@ -81,12 +81,8 @@ const Navbar = () => {
                   {l.label}
                 </motion.a>
               ))}
-              <a
-                href="#contact"
-                onClick={() => setOpen(false)}
-                className="btn-primary mt-4 text-center"
-              >
-                Book Consultation
+              <a href="#contact" onClick={() => setOpen(false)} className="btn-primary mt-4 text-center">
+                {t("nav.book")}
               </a>
             </div>
           </motion.div>
