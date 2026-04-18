@@ -4,9 +4,10 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const links = [
   { label: "About", href: "#about" },
+  { label: "Journey", href: "#journey" },
   { label: "Medicines", href: "#medicines" },
+  { label: "Certifications", href: "#certifications" },
   { label: "Results", href: "#testimonials" },
-  { label: "Locations", href: "#locations" },
 ];
 
 const Navbar = () => {

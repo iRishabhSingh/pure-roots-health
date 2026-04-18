@@ -3,10 +3,10 @@ import { Shield, FlaskConical, Heart, Users } from "lucide-react";
 import clinicImg from "@/assets/clinic-interior.jpg";
 
 const pillars = [
-  { icon: FlaskConical, title: "Patented Formulas", desc: "Proprietary research-backed Ayurvedic formulations" },
-  { icon: Shield, title: "GMP Certified", desc: "International quality standards in every product" },
+  { icon: FlaskConical, title: "Charak Samhita Based", desc: "Proprietary formulations rooted in classical Ayurvedic texts" },
+  { icon: Shield, title: "GMP Certified", desc: "In-house manufacturing since 2009 — 100% herbal, zero side-effects" },
   { icon: Heart, title: "Patient First", desc: "Personalized care plans for every individual" },
-  { icon: Users, title: "5,000+ Patients", desc: "Trusted by thousands across India" },
+  { icon: Users, title: "80,000+ Patients", desc: "Three decades of trusted care across India" },
 ];
 
 const AboutSection = () => {
@@ -34,8 +34,8 @@ const AboutSection = () => {
             </div>
             {/* Floating stat card */}
             <div className="absolute -bottom-6 -right-4 md:right-8 card-glass p-5 pr-10 shadow-xl">
-              <p className="font-display text-3xl text-primary">20+</p>
-              <p className="font-body text-sm text-muted-foreground">Years of Healing</p>
+              <p className="font-display text-3xl text-primary">30+</p>
+              <p className="font-body text-sm text-muted-foreground">Years of Healing · Since 1995</p>
             </div>
           </div>
 
@@ -51,10 +51,17 @@ const AboutSection = () => {
               <em className="italic">driven by results</em>
             </h2>
             <p className="body-lg mt-6 max-w-lg">
-              For over two decades, Kamleshwar Ayurvedic Pharmacy has been at the forefront
-              of kidney health management. Our patented formulations combine ancient wisdom
-              with modern quality standards — delivering authentic care that truly works.
+              Since 1995, Kamleshwar Ayurvedic Pharmacy has been at the forefront of kidney
+              health and blood purification. Our Charak Samhita-based formulations are
+              manufactured in-house since 2009 — 100% herbal, with zero side-effects.
             </p>
+
+            <a
+              href="#certifications"
+              className="inline-flex items-center gap-2 mt-6 text-sm font-body font-medium text-primary hover:underline"
+            >
+              View our certifications →
+            </a>
 
             <div className="grid grid-cols-2 gap-5 mt-10">
               {pillars.map(({ icon: Icon, title, desc }) => (
