@@ -23,9 +23,12 @@ i18n
     fallbackLng: "en",
     supportedLngs: SUPPORTED_LANGS as unknown as string[],
     nonExplicitSupportedLngs: true,
+    load: "languageOnly", // strip region: hi-IN -> hi
+    lowerCaseLng: true,
     interpolation: { escapeValue: false },
     detection: {
-      order: ["sessionStorage", "navigator"],
+      // htmlTag picks up <html lang>, navigator reads system/browser lang
+      order: ["sessionStorage", "navigator", "htmlTag"],
       caches: ["sessionStorage"],
       lookupSessionStorage: "lang",
     },
