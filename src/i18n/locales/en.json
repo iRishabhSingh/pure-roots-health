@@ -1,0 +1,134 @@
+{
+  "nav": {
+    "about": "About",
+    "journey": "Journey",
+    "medicines": "Medicines",
+    "certifications": "Certifications",
+    "results": "Results",
+    "book": "Book Consultation"
+  },
+  "hero": {
+    "tag": "GMP-Certified Ayurvedic Pharmacy · Since 1995",
+    "title_1": "Restoring kidney health with",
+    "title_em": "classical Ayurveda",
+    "subtitle": "Three decades of clinical practice. Proprietary herbal formulations rooted in the Charak Samhita. Trusted by 80,000+ patients across India.",
+    "cta_consult": "Book Free Consultation",
+    "cta_explore": "Our Medicines",
+    "stat_years": "Years of Practice",
+    "stat_patients": "Patients Treated",
+    "stat_certified": "Certified Pharmacy"
+  },
+  "about": {
+    "tag": "Our Practice",
+    "title_1": "Authentic Ayurveda,",
+    "title_em": "modern standards",
+    "body": "For 30 years, Kamleshwar Ayurvedic Pharmacy has specialised in kidney care, blood purification, and holistic wellness. Our proprietary, GMP-certified formulations are 100% herbal — manufactured in-house since 2009 and rooted in the Charak Samhita.",
+    "view_certs": "View certifications →",
+    "pillars": {
+      "charak": { "title": "Charak Samhita Based", "desc": "Proprietary formulations rooted in classical Ayurvedic texts." },
+      "gmp": { "title": "GMP Certified", "desc": "In-house manufacturing since 2009 — 100% herbal, zero side-effects." },
+      "patient": { "title": "Patient First", "desc": "Personalised care plans built around each individual." },
+      "trust": { "title": "80,000+ Patients", "desc": "Three decades of trusted care across North India." }
+    },
+    "stat_label": "Years of Practice · Since 1995"
+  },
+  "journey": {
+    "tag": "Our Journey",
+    "title_1": "Three decades of",
+    "title_em": "trust",
+    "subtitle": "From a single practice in 1995 to a name trusted by 80,000+ patients across India.",
+    "items": {
+      "1995": { "title": "Practice Begins", "desc": "Dr. Kamleshwar begins his Ayurvedic medical practice." },
+      "1996": { "title": "Panchkarma Centre, Jaipur", "desc": "Opens his first dedicated Panchkarma centre in Jaipur." },
+      "1998": { "title": "Government Service, Himachal", "desc": "Serves in a government medical posting in Himachal Pradesh." },
+      "1999": { "title": "Hometown Clinic, Nohar", "desc": "Establishes the flagship Kamleshwar clinic in his hometown of Nohar." },
+      "2002": { "title": "Sirsa Health Camps", "desc": "Years of free Ayurvedic health camps across Sirsa, Haryana." },
+      "2009": { "title": "Manufacturing Begins", "desc": "Launches in-house, GMP-certified manufacturing of proprietary formulations." },
+      "2009b": { "title": "Ganganagar Camps", "desc": "Continuous community health camps across Ganganagar, Rajasthan." },
+      "2011": { "title": "Gurugram & Mahendragarh", "desc": "Expanding reach with regular camps in Gurugram and Mahendragarh." },
+      "today": { "title": "80,000+ Patients", "desc": "30 years of practice, three clinics, and a trusted name across North India." }
+    }
+  },
+  "certs": {
+    "tag": "Certifications & Recognition",
+    "title_1": "Verified credentials",
+    "title_em": "you can trust",
+    "subtitle": "GMP-certified manufacturing, government recognition, and decades of formal medical training.",
+    "instructions": "Use the arrows or click a card to browse · Tap the front card to enlarge",
+    "view": "View",
+    "previous": "Previous",
+    "next": "Next",
+    "close": "Close",
+    "items": {
+      "bams": { "title": "BAMS Medical Degree", "subtitle": "Bachelor of Ayurvedic Medicine & Surgery" },
+      "gmp": { "title": "GMP Certification", "subtitle": "Good Manufacturing Practices · since 2009" },
+      "uni": { "title": "University Recognition", "subtitle": "Accredited Ayurvedic Practitioner" },
+      "award": { "title": "Excellence Award", "subtitle": "Recognition for Ayurvedic Service" },
+      "ayush": { "title": "Government Approval", "subtitle": "Ministry of AYUSH compliance" },
+      "patent": { "title": "Patent & Research", "subtitle": "Charak Samhita-based formulations" }
+    }
+  },
+  "medicines": {
+    "tag": "Our Medicines",
+    "title_em": "Proprietary",
+    "title_1": "formulations",
+    "subtitle": "GMP-certified Ayurvedic medicines crafted for purity, potency, and consistent results.",
+    "learn": "Learn more",
+    "purpose": "Purpose",
+    "timeframe": "Timeframe",
+    "usage": "How to use",
+    "benefits": "Key Benefits",
+    "precautions_label": "Precautions",
+    "precautions_full": "Always consult a qualified Ayurvedic practitioner before use. Not intended to diagnose, treat, cure, or prevent any disease.",
+    "consult": "Consult About This Medicine"
+  },
+  "testimonials": {
+    "tag": "Patient Stories",
+    "title_1": "Real results,",
+    "title_em": "real people",
+    "stat_patients": "Patients Helped",
+    "stat_years": "Years of Practice",
+    "stat_clinics": "Clinics"
+  },
+  "locations": {
+    "tag": "Our Presence",
+    "title_1": "Find us",
+    "title_em": "near you",
+    "subtitle": "Visit any of our clinics for a personalised consultation.",
+    "main": "Main"
+  },
+  "contact": {
+    "cta_title_1": "Begin your healing journey",
+    "cta_title_em": "today",
+    "cta_subtitle": "Book a free, no-obligation consultation with our Ayurvedic experts.",
+    "cta_whatsapp": "Chat on WhatsApp",
+    "cta_call": "Call Now",
+    "tag": "Get In Touch",
+    "title_1": "We'd love to",
+    "title_em": "hear from you",
+    "subtitle": "Fill out the form or reach us directly. Our team responds within 24 hours.",
+    "form": {
+      "name": "Full Name",
+      "name_placeholder": "Your name",
+      "phone": "Phone Number",
+      "phone_placeholder": "+91 XXXXX XXXXX",
+      "concern": "Health Concern",
+      "concern_placeholder": "Briefly describe your health concern…",
+      "submit": "Send Consultation Request",
+      "redirecting": "Redirecting to WhatsApp…"
+    }
+  },
+  "footer": {
+    "tagline": "Authentic Ayurvedic care for kidney health, blood purification, and holistic wellness. GMP-certified pharmacy serving 80,000+ patients since 1995.",
+    "navigate": "Navigate",
+    "contact": "Contact",
+    "rights": "All rights reserved."
+  },
+  "lang_modal": {
+    "title": "We've set the language to {{lang}}",
+    "body": "Looks like your device language is {{lang}}. You can switch to English anytime.",
+    "switch_en": "Switch to English",
+    "keep": "Continue in {{lang}}"
+  },
+  "lang_pill": "Language"
+}
