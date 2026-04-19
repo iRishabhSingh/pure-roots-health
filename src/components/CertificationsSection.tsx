@@ -1,38 +1,46 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, Award, Maximize2 } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Maximize2, Award } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import cert1 from "@/assets/cert-placeholder-1.jpg";
 import cert2 from "@/assets/cert-placeholder-2.jpg";
 import cert3 from "@/assets/cert-placeholder-3.jpg";
 import cert4 from "@/assets/cert-placeholder-4.jpg";
-import cert5 from "@/assets/cert-placeholder-5.jpg";
-import cert6 from "@/assets/cert-placeholder-6.jpg";
 
 const ease = [0.16, 1, 0.3, 1] as const;
+
+const certs = [
+  { image: cert1, key: "bams" },
+  { image: cert2, key: "gmp" },
+  { image: cert3, key: "ayush" },
+  { image: cert4, key: "award" },
+];
+
+/**
+ * For 4 cards with active=A, render order back-to-front mirrors the
+ * "1, 2, 3, 4, 5 with 3 on top" pattern adapted for 4:
+ *   back  →  A+2, A-1, A+1, A (front)
+ * Offset values control vertical/scale/opacity stagger.
+ * Position 0 = front (active). Larger position = further back.
+ */
+const stackPosition = (index: number, active: number, total: number) => {
+  // distance forward from active, wrapped
+  const fwd = (index - active + total) % total;
+  // map: active=0 → pos 0 (front); +1 → pos 1; +2 → pos 2 (back center); -1/+3 → pos 3 (deepest)
+  // We want symmetric fan: front, slightly-back-right, slightly-back-left, deepest-back
+  const map: Record<number, number> = { 0: 0, 1: 1, 2: 3, 3: 2 };
+  return map[fwd] ?? 3;
+};
 
 const CertificationsSection = () => {
   const { t } = useTranslation();
   const { ref, isVisible } = useScrollReveal();
-
-  const certs = [
-    { image: cert1, key: "bams" },
-    { image: cert2, key: "gmp" },
-    { image: cert3, key: "uni" },
-    { image: cert4, key: "award" },
-    { image: cert5, key: "ayush" },
-    { image: cert6, key: "patent" },
-  ];
-
   const [active, setActive] = useState(0);
   const [lightbox, setLightbox] = useState(false);
 
-  const next = useCallback(() => setActive((i) => (i + 1) % certs.length), [certs.length]);
-  const prev = useCallback(
-    () => setActive((i) => (i - 1 + certs.length) % certs.length),
-    [certs.length]
-  );
+  const next = useCallback(() => setActive((i) => (i + 1) % certs.length), []);
+  const prev = useCallback(() => setActive((i) => (i - 1 + certs.length) % certs.length), []);
 
   useEffect(() => {
     if (!lightbox) return;
@@ -46,119 +54,131 @@ const CertificationsSection = () => {
   }, [lightbox, prev, next]);
 
   const activeCert = certs[active];
-  const activeTitle = t(`certs.items.${activeCert.key}.title`);
-  const activeSubtitle = t(`certs.items.${activeCert.key}.subtitle`);
 
   return (
-    <section id="certifications" className="py-section">
+    <section id="certifications" className="py-section bg-background">
       <div className="container-section" ref={ref}>
-        <div className="text-center max-w-xl mx-auto mb-12">
-          <p className="label-tag">{t("certs.tag")}</p>
-          <h2 className="heading-lg mt-3 text-foreground">
-            {t("certs.title_1")} <em className="italic">{t("certs.title_em")}</em>
-          </h2>
-          <p className="body-lg mt-4">{t("certs.subtitle")}</p>
-        </div>
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* LEFT — title, copy, controls */}
+          <div
+            className={`transition-all duration-700 ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
+            <p className="label-tag">{t("certs.tag")}</p>
+            <h2 className="heading-lg mt-3 text-foreground">
+              {t("certs.title_1")} <em className="italic">{t("certs.title_em")}</em>
+            </h2>
+            <p className="body-lg mt-5 max-w-md">{t("certs.subtitle")}</p>
 
-        {/* Stacked cards */}
-        <div
-          className={`relative max-w-md mx-auto h-[460px] sm:h-[520px] transition-all duration-700 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-        >
-          {certs.map((c, i) => {
-            const offset = (i - active + certs.length) % certs.length;
-            // Show only top 4 in stack; rest hidden behind
-            const visible = offset < 4;
-            const isFront = offset === 0;
-            const yOffset = offset * 14;
-            const scale = 1 - offset * 0.04;
-            const opacity = visible ? 1 - offset * 0.08 : 0;
-            const rotate = offset === 0 ? 0 : (i % 2 === 0 ? -1 : 1) * (offset * 0.5);
+            <div className="mt-8 p-5 rounded-2xl bg-card/60 border border-border/60 max-w-md">
+              <div className="flex items-start gap-3">
+                <Award size={20} className="text-accent flex-shrink-0 mt-0.5" />
+                <div className="min-w-0">
+                  <p className="label-tag !text-muted-foreground">{t("certs.now_viewing")}</p>
+                  <h3 className="font-display text-xl text-foreground mt-1 leading-tight">
+                    {t(`certs.items.${activeCert.key}.title`)}
+                  </h3>
+                  <p className="font-body text-sm text-muted-foreground mt-1">
+                    {t(`certs.items.${activeCert.key}.subtitle`)}
+                  </p>
+                </div>
+              </div>
+            </div>
 
-            return (
-              <motion.button
-                key={c.key}
-                onClick={() => {
-                  if (isFront) setLightbox(true);
-                  else setActive(i);
-                }}
-                animate={{
-                  y: yOffset,
-                  scale,
-                  opacity,
-                  rotate,
-                  zIndex: certs.length - offset,
-                }}
-                transition={{ duration: 0.55, ease }}
-                className="absolute inset-0 card-glass overflow-hidden text-left cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/40"
-                style={{
-                  pointerEvents: visible ? "auto" : "none",
-                  boxShadow: isFront
-                    ? "0 25px 50px -15px hsl(160 35% 12% / 0.25)"
-                    : "0 10px 30px -10px hsl(160 35% 12% / 0.15)",
-                }}
-                aria-label={isFront ? `${t("certs.view")} ${t(`certs.items.${c.key}.title`)}` : t(`certs.items.${c.key}.title`)}
+            <div className="flex items-center gap-4 mt-6">
+              <button
+                onClick={prev}
+                className="w-11 h-11 rounded-full border border-border bg-background flex items-center justify-center hover:bg-card transition-colors"
+                aria-label={t("certs.previous")}
               >
-                <div className="aspect-[4/5] sm:aspect-[3/4] overflow-hidden bg-muted">
-                  <img
-                    src={c.image}
-                    alt={t(`certs.items.${c.key}.title`)}
-                    loading="lazy"
-                    width={768}
-                    height={1024}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-5 flex items-start gap-3 bg-card">
-                  <Award size={18} className="text-accent flex-shrink-0 mt-0.5" />
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-display text-lg text-foreground leading-tight truncate">
-                      {t(`certs.items.${c.key}.title`)}
-                    </h3>
-                    <p className="font-body text-xs text-muted-foreground mt-1 truncate">
-                      {t(`certs.items.${c.key}.subtitle`)}
-                    </p>
-                  </div>
-                  {isFront && <Maximize2 size={14} className="text-muted-foreground flex-shrink-0 mt-1" />}
-                </div>
-              </motion.button>
-            );
-          })}
-        </div>
-
-        {/* Controls */}
-        <div className="flex items-center justify-center gap-4 mt-10">
-          <button
-            onClick={prev}
-            className="w-11 h-11 rounded-full border border-border flex items-center justify-center hover:bg-card transition-colors"
-            aria-label={t("certs.previous")}
-          >
-            <ChevronLeft size={18} />
-          </button>
-          <div className="font-body text-sm text-muted-foreground tabular-nums min-w-[60px] text-center">
-            {active + 1} / {certs.length}
+                <ChevronLeft size={18} />
+              </button>
+              <div className="font-body text-sm text-muted-foreground tabular-nums min-w-[60px] text-center">
+                {active + 1} / {certs.length}
+              </div>
+              <button
+                onClick={next}
+                className="w-11 h-11 rounded-full border border-border bg-background flex items-center justify-center hover:bg-card transition-colors"
+                aria-label={t("certs.next")}
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
+            <p className="font-body text-xs text-muted-foreground/70 mt-4">{t("certs.instructions")}</p>
           </div>
-          <button
-            onClick={next}
-            className="w-11 h-11 rounded-full border border-border flex items-center justify-center hover:bg-card transition-colors"
-            aria-label={t("certs.next")}
+
+          {/* RIGHT — stacked deck */}
+          <div
+            className={`relative w-full max-w-[420px] mx-auto h-[420px] sm:h-[480px] lg:h-[520px] transition-all duration-700 ${
+              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
           >
-            <ChevronRight size={18} />
-          </button>
+            {certs.map((c, i) => {
+              const pos = stackPosition(i, active, certs.length);
+              const isFront = pos === 0;
+              // Symmetric fan offsets — adjust here to taste.
+              const offsetMap: Record<number, { y: number; x: number; rot: number; scale: number; opacity: number }> = {
+                0: { y: 0, x: 0, rot: 0, scale: 1, opacity: 1 },
+                1: { y: 12, x: 22, rot: 3, scale: 0.96, opacity: 0.92 },
+                2: { y: 12, x: -22, rot: -3, scale: 0.96, opacity: 0.92 },
+                3: { y: 24, x: 0, rot: 0, scale: 0.92, opacity: 0.78 },
+              };
+              const o = offsetMap[pos];
+
+              return (
+                <motion.button
+                  key={c.key}
+                  type="button"
+                  onClick={() => {
+                    if (isFront) setLightbox(true);
+                    else setActive(i);
+                  }}
+                  animate={{
+                    y: o.y, x: o.x, rotate: o.rot, scale: o.scale, opacity: o.opacity,
+                    zIndex: 10 - pos,
+                  }}
+                  transition={{ duration: 0.55, ease }}
+                  className="absolute inset-0 card-glass overflow-hidden text-left focus:outline-none focus:ring-2 focus:ring-primary/40"
+                  style={{
+                    boxShadow: isFront
+                      ? "0 25px 50px -15px hsl(160 35% 12% / 0.28)"
+                      : "0 12px 30px -12px hsl(160 35% 12% / 0.18)",
+                    cursor: isFront ? "zoom-in" : "pointer",
+                  }}
+                  aria-label={
+                    isFront
+                      ? `${t("certs.view")} ${t(`certs.items.${c.key}.title`)}`
+                      : t(`certs.items.${c.key}.title`)
+                  }
+                >
+                  <div className="w-full h-full overflow-hidden bg-muted">
+                    <img
+                      src={c.image}
+                      alt={t(`certs.items.${c.key}.title`)}
+                      loading="lazy"
+                      width={768}
+                      height={1024}
+                      className="w-full h-full object-cover"
+                    />
+                    {isFront && (
+                      <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-background/80 backdrop-blur flex items-center justify-center">
+                        <Maximize2 size={14} className="text-foreground" />
+                      </div>
+                    )}
+                  </div>
+                </motion.button>
+              );
+            })}
+          </div>
         </div>
-        <p className="font-body text-xs text-muted-foreground/70 text-center mt-4">
-          {t("certs.instructions")}
-        </p>
       </div>
 
       {/* Lightbox */}
       <AnimatePresence>
         {lightbox && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
             style={{ background: "hsl(160 15% 12% / 0.9)", backdropFilter: "blur(10px)" }}
@@ -175,12 +195,16 @@ const CertificationsSection = () => {
             >
               <img
                 src={activeCert.image}
-                alt={activeTitle}
+                alt={t(`certs.items.${activeCert.key}.title`)}
                 className="max-h-[75vh] w-auto object-contain rounded-2xl shadow-2xl"
               />
               <div className="mt-4 text-center">
-                <h3 className="font-display text-xl text-primary-foreground">{activeTitle}</h3>
-                <p className="font-body text-sm text-primary-foreground/70 mt-1">{activeSubtitle}</p>
+                <h3 className="font-display text-xl text-primary-foreground">
+                  {t(`certs.items.${activeCert.key}.title`)}
+                </h3>
+                <p className="font-body text-sm text-primary-foreground/70 mt-1">
+                  {t(`certs.items.${activeCert.key}.subtitle`)}
+                </p>
                 <p className="font-body text-xs text-primary-foreground/40 mt-2">
                   {active + 1} / {certs.length}
                 </p>
