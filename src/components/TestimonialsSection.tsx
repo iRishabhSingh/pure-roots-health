@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { Star, Play, X, ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 
 const testimonials = [
@@ -47,6 +48,7 @@ const testimonials = [
 const ease = [0.16, 1, 0.3, 1] as const;
 
 const TestimonialsSection = () => {
+  const { t } = useTranslation();
   const { ref, isVisible } = useScrollReveal();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [videoPlaying, setVideoPlaying] = useState<string | null>(null);
@@ -63,23 +65,23 @@ const TestimonialsSection = () => {
         <div className="container-section">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
             <div>
-              <p className="label-tag">Patient Stories</p>
+              <p className="label-tag">{t("testimonials.tag")}</p>
               <h2 className="heading-lg mt-3 text-foreground">
-                Real <em className="italic">results,</em> real people
+                {t("testimonials.title_1")} <em className="italic">{t("testimonials.title_em")}</em>
               </h2>
             </div>
             <div className="flex gap-2">
               <button
                 onClick={() => scroll("left")}
                 className="w-11 h-11 rounded-full border border-border flex items-center justify-center hover:bg-card transition-colors duration-300"
-                aria-label="Previous"
+                aria-label={t("testimonials.prev")}
               >
                 <ChevronLeft size={18} />
               </button>
               <button
                 onClick={() => scroll("right")}
                 className="w-11 h-11 rounded-full border border-border flex items-center justify-center hover:bg-card transition-colors duration-300"
-                aria-label="Next"
+                aria-label={t("testimonials.next")}
               >
                 <ChevronRight size={18} />
               </button>
@@ -151,9 +153,9 @@ const TestimonialsSection = () => {
             }`}
           >
             {[
-              { value: "80,000+", label: "Patients Helped" },
-              { value: "30+", label: "Years of Practice" },
-              { value: "3", label: "Clinics" },
+              { value: "80,000+", label: t("testimonials.stat_patients") },
+              { value: "30+", label: t("testimonials.stat_years") },
+              { value: "3", label: t("testimonials.stat_clinics") },
             ].map((s) => (
               <div key={s.label}>
                 <p className="font-display text-3xl md:text-4xl text-primary">{s.value}</p>
