@@ -96,9 +96,6 @@ const JourneySection = () => {
         </div>
       </div>
 
-      <p className="container-section font-body text-xs text-muted-foreground/70 text-center mt-6">
-        {t("journey.hint")}
-      </p>
     </section>
   );
 };

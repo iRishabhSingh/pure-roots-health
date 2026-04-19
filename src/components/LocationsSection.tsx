@@ -14,9 +14,10 @@ interface Location {
   lon: number;
 }
 
+// Order matters: on lg+ screens, the primary clinic (Nohar) sits in the middle column.
 const locations: Location[] = [
-  { cityKey: "nohar", city: "Nohar", state: "Rajasthan", address: "Founding Clinic — established 1999", phone: "+91-9414636560", isPrimary: true, lat: 29.1812, lon: 74.7723 },
   { cityKey: "jaipur", city: "Jaipur", state: "Rajasthan", address: "Panchkarma Centre — established 1996", phone: "+91-9414636560", lat: 26.9124, lon: 75.7873 },
+  { cityKey: "nohar", city: "Nohar", state: "Rajasthan", address: "Founding Clinic — established 1999", phone: "+91-9414636560", isPrimary: true, lat: 29.1812, lon: 74.7723 },
   { cityKey: "sirsa", city: "Sirsa", state: "Haryana", address: "Consultation Centre", phone: "+91-9414636560", lat: 29.5353, lon: 75.0238 },
 ];
 
@@ -43,13 +44,14 @@ const LocationsSection = () => {
           <p className="body-lg mt-4">{t("locations.subtitle")}</p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-5xl mx-auto justify-items-center">
+          {/* Equal sized cards — primary sits in center column on lg+ */}
           {locations.map((loc, i) => (
             <article
               key={loc.city}
-              className={`card-glass overflow-hidden flex flex-col transition-all duration-700 ${
+              className={`card-glass overflow-hidden flex flex-col w-full max-w-sm transition-all duration-700 ${
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              } ${loc.isPrimary ? "ring-1 ring-primary/20" : ""}`}
+              } ${loc.isPrimary ? "ring-1 ring-primary/30 shadow-lg" : ""}`}
               style={{ transitionDelay: `${i * 100}ms` }}
             >
               {/* Static map thumbnail — no JS, no iframe */}

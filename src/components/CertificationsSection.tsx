@@ -8,7 +8,7 @@ import cert2 from "@/assets/cert-placeholder-2.jpg";
 import cert3 from "@/assets/cert-placeholder-3.jpg";
 import cert4 from "@/assets/cert-placeholder-4.jpg";
 
-const ease = [0.16, 1, 0.3, 1] as const;
+const ease = [0.22, 1, 0.36, 1] as const;
 
 const certs = [
   { image: cert1, key: "bams" },
@@ -18,19 +18,22 @@ const certs = [
 ];
 
 /**
- * For 4 cards with active=A, render order back-to-front mirrors the
- * "1, 2, 3, 4, 5 with 3 on top" pattern adapted for 4:
- *   back  →  A+2, A-1, A+1, A (front)
- * Offset values control vertical/scale/opacity stagger.
- * Position 0 = front (active). Larger position = further back.
+ * 4-card stack — symmetric fan with the active card in front.
+ * Distance forward from active (wrapped) maps to a depth slot 0..3:
+ *   0 = front (active), 1 = right-back, 2 = deepest, 3 = left-back
  */
-const stackPosition = (index: number, active: number, total: number) => {
-  // distance forward from active, wrapped
+const depthFor = (index: number, active: number, total: number) => {
   const fwd = (index - active + total) % total;
-  // map: active=0 → pos 0 (front); +1 → pos 1; +2 → pos 2 (back center); -1/+3 → pos 3 (deepest)
-  // We want symmetric fan: front, slightly-back-right, slightly-back-left, deepest-back
-  const map: Record<number, number> = { 0: 0, 1: 1, 2: 3, 3: 2 };
-  return map[fwd] ?? 3;
+  // 4-card layout: 0→front, 1→right-back, 2→deepest, 3→left-back
+  const map: Record<number, number> = { 0: 0, 1: 1, 2: 2, 3: 3 };
+  return map[fwd] ?? 2;
+};
+
+const slotStyles: Record<number, { y: number; x: number; rot: number; scale: number; opacity: number }> = {
+  0: { y: 0, x: 0, rot: 0, scale: 1, opacity: 1 },
+  1: { y: 14, x: 26, rot: 4, scale: 0.95, opacity: 0.9 },
+  2: { y: 28, x: 0, rot: 0, scale: 0.9, opacity: 0.75 },
+  3: { y: 14, x: -26, rot: -4, scale: 0.95, opacity: 0.9 },
 };
 
 const CertificationsSection = () => {
@@ -76,12 +79,22 @@ const CertificationsSection = () => {
                 <Award size={20} className="text-accent flex-shrink-0 mt-0.5" />
                 <div className="min-w-0">
                   <p className="label-tag !text-muted-foreground">{t("certs.now_viewing")}</p>
-                  <h3 className="font-display text-xl text-foreground mt-1 leading-tight">
-                    {t(`certs.items.${activeCert.key}.title`)}
-                  </h3>
-                  <p className="font-body text-sm text-muted-foreground mt-1">
-                    {t(`certs.items.${activeCert.key}.subtitle`)}
-                  </p>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeCert.key}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.3, ease }}
+                    >
+                      <h3 className="font-display text-xl text-foreground mt-1 leading-tight">
+                        {t(`certs.items.${activeCert.key}.title`)}
+                      </h3>
+                      <p className="font-body text-sm text-muted-foreground mt-1">
+                        {t(`certs.items.${activeCert.key}.subtitle`)}
+                      </p>
+                    </motion.div>
+                  </AnimatePresence>
                 </div>
               </div>
             </div>
@@ -108,23 +121,17 @@ const CertificationsSection = () => {
             <p className="font-body text-xs text-muted-foreground/70 mt-4">{t("certs.instructions")}</p>
           </div>
 
-          {/* RIGHT — stacked deck */}
+          {/* RIGHT — premium stacked deck */}
           <div
-            className={`relative w-full max-w-[420px] mx-auto h-[420px] sm:h-[480px] lg:h-[520px] transition-all duration-700 ${
+            className={`relative w-full max-w-[420px] mx-auto h-[460px] sm:h-[500px] lg:h-[540px] transition-all duration-700 ${
               isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
+            style={{ perspective: "1200px" }}
           >
             {certs.map((c, i) => {
-              const pos = stackPosition(i, active, certs.length);
-              const isFront = pos === 0;
-              // Symmetric fan offsets — adjust here to taste.
-              const offsetMap: Record<number, { y: number; x: number; rot: number; scale: number; opacity: number }> = {
-                0: { y: 0, x: 0, rot: 0, scale: 1, opacity: 1 },
-                1: { y: 12, x: 22, rot: 3, scale: 0.96, opacity: 0.92 },
-                2: { y: 12, x: -22, rot: -3, scale: 0.96, opacity: 0.92 },
-                3: { y: 24, x: 0, rot: 0, scale: 0.92, opacity: 0.78 },
-              };
-              const o = offsetMap[pos];
+              const slot = depthFor(i, active, certs.length);
+              const isFront = slot === 0;
+              const s = slotStyles[slot];
 
               return (
                 <motion.button
@@ -134,17 +141,25 @@ const CertificationsSection = () => {
                     if (isFront) setLightbox(true);
                     else setActive(i);
                   }}
+                  initial={false}
                   animate={{
-                    y: o.y, x: o.x, rotate: o.rot, scale: o.scale, opacity: o.opacity,
-                    zIndex: 10 - pos,
+                    y: s.y,
+                    x: s.x,
+                    rotate: s.rot,
+                    scale: s.scale,
+                    opacity: s.opacity,
+                    zIndex: 10 - slot,
                   }}
-                  transition={{ duration: 0.55, ease }}
-                  className="absolute inset-0 card-glass overflow-hidden text-left focus:outline-none focus:ring-2 focus:ring-primary/40"
+                  transition={{ type: "spring", stiffness: 220, damping: 28, mass: 0.9 }}
+                  whileHover={isFront ? { y: s.y - 4, scale: s.scale * 1.01 } : { scale: s.scale * 1.02 }}
+                  whileTap={{ scale: s.scale * 0.98 }}
+                  className="absolute inset-0 card-glass overflow-hidden text-left focus:outline-none focus:ring-2 focus:ring-primary/40 will-change-transform"
                   style={{
                     boxShadow: isFront
-                      ? "0 25px 50px -15px hsl(160 35% 12% / 0.28)"
-                      : "0 12px 30px -12px hsl(160 35% 12% / 0.18)",
+                      ? "0 30px 60px -20px hsl(160 35% 12% / 0.32)"
+                      : "0 14px 32px -14px hsl(160 35% 12% / 0.18)",
                     cursor: isFront ? "zoom-in" : "pointer",
+                    transformStyle: "preserve-3d",
                   }}
                   aria-label={
                     isFront
@@ -152,7 +167,7 @@ const CertificationsSection = () => {
                       : t(`certs.items.${c.key}.title`)
                   }
                 >
-                  <div className="w-full h-full overflow-hidden bg-muted">
+                  <div className="relative w-full h-full overflow-hidden bg-muted">
                     <img
                       src={c.image}
                       alt={t(`certs.items.${c.key}.title`)}
@@ -162,7 +177,7 @@ const CertificationsSection = () => {
                       className="w-full h-full object-cover"
                     />
                     {isFront && (
-                      <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-background/80 backdrop-blur flex items-center justify-center">
+                      <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-background/85 backdrop-blur flex items-center justify-center shadow-md">
                         <Maximize2 size={14} className="text-foreground" />
                       </div>
                     )}

@@ -77,9 +77,27 @@
     "title_em": "Proprietary",
     "title_1": "formulations",
     "subtitle": "GMP-certified Ayurvedic medicines crafted for purity, potency, and consistent results.",
+    "prompt": "What brings you here today? Pick a concern to see relevant formulations.",
     "search_placeholder": "Search by name or condition…",
     "count": "Showing {{shown}} of {{total}} formulations",
-    "empty": "No formulations match your search.",
+    "empty": "No formulations match your selection.",
+    "view_all": "View all {{total}} formulations",
+    "back_home": "Back to home",
+    "all_title_em": "Complete",
+    "all_title": "formulary",
+    "all_subtitle": "Browse every GMP-certified formulation crafted in-house since 2009.",
+    "issues": {
+      "all": "All",
+      "kidney": "Kidney",
+      "urinary": "Urinary",
+      "liver": "Liver",
+      "digestive": "Digestive",
+      "blood": "Blood / Skin",
+      "joints": "Joints",
+      "respiratory": "Respiratory",
+      "skin": "Skin",
+      "general": "General wellness"
+    },
     "categories": {
       "all": "All",
       "kidney": "Kidney",
@@ -94,7 +112,9 @@
     "benefits": "Key Benefits",
     "precautions_label": "Precautions",
     "precautions_full": "Always consult a qualified Ayurvedic practitioner before use. Not intended to diagnose, treat, cure, or prevent any disease.",
-    "consult": "Consult About This Medicine"
+    "consult": "Consult About This Medicine",
+    "consult_about": "Consult about {{name}} on WhatsApp",
+    "consult_short": "Consult on WhatsApp"
   },
   "testimonials": {
     "tag": "Patient Stories",

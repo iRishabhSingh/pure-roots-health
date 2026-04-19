@@ -78,18 +78,20 @@ const LanguagePrompt = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 8, scale: 0.96 }}
             transition={{ duration: 0.2, ease }}
-            className="absolute bottom-full left-0 mb-2 bg-card border border-border rounded-xl shadow-xl overflow-hidden min-w-[160px]"
+            className="absolute bottom-full left-0 mb-2 bg-card border border-border rounded-xl shadow-xl overflow-hidden min-w-[200px]"
           >
-            {SUPPORTED_LANGS.map((l) => (
-              <button
-                key={l}
-                onClick={() => choose(l)}
-                className="w-full flex items-center justify-between px-4 py-2.5 text-left hover:bg-muted transition-colors"
-              >
-                <span className="font-body text-sm text-foreground">{LANG_LABELS[l]}</span>
-                {current === l && <Check size={14} className="text-primary" />}
-              </button>
-            ))}
+            <div className="max-h-[280px] overflow-y-auto py-1">
+              {SUPPORTED_LANGS.map((l) => (
+                <button
+                  key={l}
+                  onClick={() => choose(l)}
+                  className="w-full flex items-center justify-between px-4 py-2 text-left hover:bg-muted transition-colors"
+                >
+                  <span className="font-body text-sm text-foreground">{LANG_LABELS[l]}</span>
+                  {current === l && <Check size={14} className="text-primary" />}
+                </button>
+              ))}
+            </div>
             <button
               onClick={() => setPickerOpen(false)}
               className="w-full flex items-center gap-2 px-4 py-2 text-left border-t border-border/50 text-muted-foreground hover:bg-muted transition-colors"
