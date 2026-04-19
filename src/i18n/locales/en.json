@@ -19,42 +19,48 @@
     "stat_certified": "Certified Pharmacy"
   },
   "about": {
-    "tag": "Our Practice",
-    "title_1": "Authentic Ayurveda,",
-    "title_em": "modern standards",
-    "body": "For 30 years, Kamleshwar Ayurvedic Pharmacy has specialised in kidney care, blood purification, and holistic wellness. Our proprietary, GMP-certified formulations are 100% herbal — manufactured in-house since 2009 and rooted in the Charak Samhita.",
-    "view_certs": "View certifications →",
+    "tag": "The Story",
+    "title_1": "Built one patient",
+    "title_em": "at a time",
+    "founder_name": "Dr. Kamleshwar",
+    "founder_title": "Founder · Practising since 1995",
+    "p1": "It started in 1995, in a quiet corner of Rajasthan, with a single Ayurvedic practice and a simple promise — to treat each patient with the care and patience our shastras demand.",
+    "p2": "For years, that meant free health camps in the dust of Sirsa, Ganganagar, Gurugram, and Mahendragarh. Word travelled from village to village. Families came back. Then their children came. By 1999, our flagship clinic in Nohar was permanent. By 2009, we built our own GMP-certified manufacturing — because the only way to guarantee purity end-to-end is to make the medicines ourselves.",
+    "p3": "Today, three clinics serve over 80,000 patients across North India. The promise hasn't changed.",
+    "view_certs": "See our credentials",
     "pillars": {
-      "charak": { "title": "Charak Samhita Based", "desc": "Proprietary formulations rooted in classical Ayurvedic texts." },
-      "gmp": { "title": "GMP Certified", "desc": "In-house manufacturing since 2009 — 100% herbal, zero side-effects." },
-      "patient": { "title": "Patient First", "desc": "Personalised care plans built around each individual." },
-      "trust": { "title": "80,000+ Patients", "desc": "Three decades of trusted care across North India." }
-    },
-    "stat_label": "Years of Practice · Since 1995"
+      "roots": { "title": "Rooted in tradition", "desc": "Proprietary formulations grounded in the Charak Samhita and decades of clinical experience." },
+      "gmp": { "title": "GMP manufactured in-house", "desc": "Every batch made under our own roof since 2009 — 100% herbal, fully traceable." },
+      "trust": { "title": "Built on word of mouth", "desc": "80,000+ patients across three clinics. Most still come from a friend or family referral." }
+    }
   },
   "journey": {
-    "tag": "Our Journey",
-    "title_1": "Three decades of",
-    "title_em": "trust",
-    "subtitle": "From a single practice in 1995 to a name trusted by 80,000+ patients across India.",
+    "tag": "Milestones",
+    "title_1": "Three decades,",
+    "title_em": "one promise",
+    "subtitle": "From a single practice in 1995 to a name trusted across North India — the moments that built it.",
+    "hint": "Swipe or use the arrows to explore our timeline",
+    "prev": "Previous milestone",
+    "next": "Next milestone",
     "items": {
-      "1995": { "title": "Practice Begins", "desc": "Dr. Kamleshwar begins his Ayurvedic medical practice." },
-      "1996": { "title": "Panchkarma Centre, Jaipur", "desc": "Opens his first dedicated Panchkarma centre in Jaipur." },
-      "1998": { "title": "Government Service, Himachal", "desc": "Serves in a government medical posting in Himachal Pradesh." },
-      "1999": { "title": "Hometown Clinic, Nohar", "desc": "Establishes the flagship Kamleshwar clinic in his hometown of Nohar." },
-      "2002": { "title": "Sirsa Health Camps", "desc": "Years of free Ayurvedic health camps across Sirsa, Haryana." },
-      "2009": { "title": "Manufacturing Begins", "desc": "Launches in-house, GMP-certified manufacturing of proprietary formulations." },
-      "2009b": { "title": "Ganganagar Camps", "desc": "Continuous community health camps across Ganganagar, Rajasthan." },
-      "2011": { "title": "Gurugram & Mahendragarh", "desc": "Expanding reach with regular camps in Gurugram and Mahendragarh." },
-      "today": { "title": "80,000+ Patients", "desc": "30 years of practice, three clinics, and a trusted name across North India." }
+      "1995": { "title": "Practice begins", "desc": "Dr. Kamleshwar opens his Ayurvedic practice in Rajasthan." },
+      "1996": { "title": "Panchkarma Centre, Jaipur", "desc": "First dedicated Panchkarma centre opens in Jaipur." },
+      "1998": { "title": "Government posting", "desc": "Serves in a government medical posting in Himachal Pradesh." },
+      "1999": { "title": "Flagship clinic, Nohar", "desc": "Permanent Kamleshwar clinic established in his hometown of Nohar." },
+      "2002": { "title": "Sirsa health camps", "desc": "Free Ayurvedic camps across Sirsa, Haryana — building grassroots trust." },
+      "2009": { "title": "Manufacturing begins", "desc": "GMP-certified, in-house production of proprietary formulations." },
+      "2009b": { "title": "Ganganagar outreach", "desc": "Continuous community camps across Ganganagar, Rajasthan." },
+      "2011": { "title": "Gurugram & Mahendragarh", "desc": "Regular camps expand reach across Haryana." },
+      "today": { "title": "80,000+ patients today", "desc": "Three clinics. One trusted name across North India." }
     }
   },
   "certs": {
-    "tag": "Certifications & Recognition",
+    "tag": "Credentials",
     "title_1": "Verified credentials",
     "title_em": "you can trust",
-    "subtitle": "GMP-certified manufacturing, government recognition, and decades of formal medical training.",
-    "instructions": "Use the arrows or click a card to browse · Tap the front card to enlarge",
+    "subtitle": "Formal medical training, GMP-certified manufacturing, and recognition from the Ministry of AYUSH — every claim independently verified.",
+    "now_viewing": "Now Viewing",
+    "instructions": "Click the front card to enlarge · Use arrows or click a peeking card to switch",
     "view": "View",
     "previous": "Previous",
     "next": "Next",
@@ -62,10 +68,8 @@
     "items": {
       "bams": { "title": "BAMS Medical Degree", "subtitle": "Bachelor of Ayurvedic Medicine & Surgery" },
       "gmp": { "title": "GMP Certification", "subtitle": "Good Manufacturing Practices · since 2009" },
-      "uni": { "title": "University Recognition", "subtitle": "Accredited Ayurvedic Practitioner" },
-      "award": { "title": "Excellence Award", "subtitle": "Recognition for Ayurvedic Service" },
-      "ayush": { "title": "Government Approval", "subtitle": "Ministry of AYUSH compliance" },
-      "patent": { "title": "Patent & Research", "subtitle": "Charak Samhita-based formulations" }
+      "ayush": { "title": "Ministry of AYUSH", "subtitle": "Government recognition & compliance" },
+      "award": { "title": "Service Recognition", "subtitle": "Award for community Ayurvedic service" }
     }
   },
   "medicines": {
@@ -73,6 +77,16 @@
     "title_em": "Proprietary",
     "title_1": "formulations",
     "subtitle": "GMP-certified Ayurvedic medicines crafted for purity, potency, and consistent results.",
+    "search_placeholder": "Search by name or condition…",
+    "count": "Showing {{shown}} of {{total}} formulations",
+    "empty": "No formulations match your search.",
+    "categories": {
+      "all": "All",
+      "kidney": "Kidney",
+      "blood": "Blood",
+      "digestive": "Digestive",
+      "urinary": "Urinary"
+    },
     "learn": "Learn more",
     "purpose": "Purpose",
     "timeframe": "Timeframe",
@@ -95,7 +109,9 @@
     "title_1": "Find us",
     "title_em": "near you",
     "subtitle": "Visit any of our clinics for a personalised consultation.",
-    "main": "Main"
+    "main": "Main",
+    "directions": "Get Directions",
+    "open_maps": "Open in Google Maps"
   },
   "contact": {
     "cta_title_1": "Begin your healing journey",
@@ -124,11 +140,18 @@
     "contact": "Contact",
     "rights": "All rights reserved."
   },
+  "fab": {
+    "whatsapp": "WhatsApp",
+    "call": "Call",
+    "more": "Show more options",
+    "hide": "Hide options"
+  },
   "lang_modal": {
     "title": "We've set the language to {{lang}}",
     "body": "Looks like your device language is {{lang}}. You can switch to English anytime.",
     "switch_en": "Switch to English",
     "keep": "Continue in {{lang}}"
   },
-  "lang_pill": "Language"
+  "lang_pill": "Language",
+  "lang_close": "Close"
 }
