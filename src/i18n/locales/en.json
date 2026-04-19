@@ -111,10 +111,11 @@
     "usage": "How to use",
     "benefits": "Key Benefits",
     "precautions_label": "Precautions",
-    "precautions_full": "Always consult a qualified Ayurvedic practitioner before use. Not intended to diagnose, treat, cure, or prevent any disease.",
+    "vaidya_label": "Personalised guidance",
+    "vaidya_note": "Every body is different. Speak to our Vaidya on WhatsApp or call us — we'll match the right formulation, dosage, and supportive lifestyle for you.",
     "consult": "Consult About This Medicine",
-    "consult_about": "Consult about {{name}} on WhatsApp",
-    "consult_short": "Consult on WhatsApp"
+    "consult_about": "Consult our Vaidya about {{name}}",
+    "consult_short": "Talk to our Vaidya"
   },
   "testimonials": {
     "tag": "Patient Stories",
@@ -122,7 +123,10 @@
     "title_em": "real people",
     "stat_patients": "Patients Helped",
     "stat_years": "Years of Practice",
-    "stat_clinics": "Clinics"
+    "stat_clinics": "Clinics",
+    "prev": "Previous testimonial",
+    "next": "Next testimonial",
+    "video_alt": "{{name}} video testimonial"
   },
   "locations": {
     "tag": "Our Presence",
@@ -173,5 +177,12 @@
     "keep": "Continue in {{lang}}"
   },
   "lang_pill": "Language",
-  "lang_close": "Close"
+  "lang_close": "Close",
+  "a11y": {
+    "region": "Accessibility controls",
+    "text_size": "Text size",
+    "decrease": "Decrease text size",
+    "increase": "Increase text size",
+    "reset": "Reset text size"
+  }
 }

@@ -179,10 +179,11 @@ const MedicinesSection = () => {
                   </div>
                 )}
 
-                <div className="mt-6 p-4 bg-accent/8 rounded-xl border border-accent/15">
-                  <p className="font-body text-xs text-muted-foreground">
-                    <strong>{t("medicines.precautions_label")}:</strong>{" "}
-                    {selected.precautions ?? ""} {t("medicines.precautions_full")}
+                <div className="mt-6 p-4 bg-primary/5 rounded-xl border border-primary/15 flex items-start gap-3">
+                  <MessageCircle size={16} className="text-primary flex-shrink-0 mt-0.5" />
+                  <p className="font-body text-xs text-muted-foreground leading-relaxed">
+                    <strong className="text-foreground">{t("medicines.vaidya_label")}:</strong>{" "}
+                    {t("medicines.vaidya_note")}
                   </p>
                 </div>
                 <a

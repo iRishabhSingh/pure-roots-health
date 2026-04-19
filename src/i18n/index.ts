@@ -161,4 +161,13 @@ i18n
     },
   });
 
+// Keep <html lang> in sync — improves screen-reader pronunciation & SEO.
+if (typeof document !== "undefined") {
+  const sync = (lng: string) => {
+    document.documentElement.lang = (lng || "en").split("-")[0];
+  };
+  sync(i18n.language || initialDetected);
+  i18n.on("languageChanged", sync);
+}
+
 export default i18n;

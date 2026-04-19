@@ -112,7 +112,7 @@ const MedicinesIndex = () => {
         )}
 
         <p className="text-center font-body text-xs text-muted-foreground/70 mt-10 max-w-xl mx-auto">
-          {t("medicines.precautions_full")}
+          {t("medicines.vaidya_note")}
         </p>
       </section>
     </main>
