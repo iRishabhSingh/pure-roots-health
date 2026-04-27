@@ -25,7 +25,8 @@ const MedicinesIndex = () => {
       <header className="border-b border-border/60 bg-card/30">
         <div className="container-section py-6 flex items-center justify-between gap-4">
           <Link
-            to="/"
+            to=".."
+            relative="path"
             className="inline-flex items-center gap-2 font-body text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft size={16} /> {t("medicines.back_home", "Back to home")}

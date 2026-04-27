@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Globe, X, Check } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { LANG_LABELS, SUPPORTED_LANGS, type Lang } from "@/i18n";
+import { withLang } from "@/lib/lang";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -13,6 +15,8 @@ const normalize = (l: string): Lang => {
 
 const LanguagePrompt = () => {
   const { i18n, t } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const current = normalize(i18n.resolvedLanguage || i18n.language || "en");
 
   const [showModal, setShowModal] = useState(false);
@@ -46,17 +50,18 @@ const LanguagePrompt = () => {
   const dismissModal = (switchToEn: boolean) => {
     sessionStorage.setItem("lang_prompt_handled", "1");
     if (switchToEn) {
-      i18n.changeLanguage("en");
       sessionStorage.setItem("lang", "en");
+      navigate(withLang(location.pathname, "en"), { replace: true });
     }
     setShowModal(false);
   };
 
   const choose = (lang: Lang) => {
-    i18n.changeLanguage(lang);
     sessionStorage.setItem("lang", lang);
     sessionStorage.setItem("lang_prompt_handled", "1");
     setPickerOpen(false);
+    // URL is the source of truth — LangLayout will sync i18n on the new route.
+    navigate(withLang(location.pathname, lang));
   };
 
   const Pill = (
