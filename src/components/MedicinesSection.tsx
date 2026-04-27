@@ -99,7 +99,7 @@ const MedicinesSection = () => {
         {/* View-all CTA */}
         <div className="mt-10 text-center">
           <Link
-            to="/medicines"
+            to="medicines"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-card border border-border hover:border-primary/40 hover:text-primary transition-colors font-body text-sm font-medium text-foreground"
           >
             {t("medicines.view_all", { total: medicines.length })}
